@@ -7,7 +7,6 @@
 * 자주 사용하는 데이터나 값을 미리 복사해 놓는 기법
 * 저장 공간이 작고 비용이 비싼 대신 빠른 성능을 제공
 * 원본 데이터를 가져오는 시간이 오래 걸리는 경우(서버의 균일한 API 데이터) / 반복적으로 동일한 결과를 돌려주는 경우(이미지나 썸네일 등) 등에 사용한다.
-<hr>
 * Cache에 데이터를 미리 복사해 놓으면 계산이나 접근 시간 없이 더 빠른 속도로 데이터에 접근할 수 있다. 
 * Cache란 반복적으로 데이터를 불러오는 경우에, 지속적으로 DBMS 혹은 서버에 요청하는 것이 아니라 Memory에 데이터를 저장하였다가 불러다 쓰는 것을 의미한다.
 * Enterprise급 Application에서는 DBMS의 부하를 줄이고, 성능을 높이기 위해 캐시(Cache)를 사용한다.
@@ -30,6 +29,7 @@ origin 혹은 origin server 는 캐시에 저장할 실 데이터가 존재하�
 적중률로 전체 참조 횟수 대비 Cache hit 된 비율을 의미한다. <br>
 실질적으로 캐시의 설계는 Cache hit Ratio 를 높이는 데 초점을 둔다. <br>
 
+<hr>
 ## Redis
 > Redis 란?
 * 고성능 키-값 저장소로서 문자열, 리스트, 해시, 셋, 정렬된 셋 형식의 데이터를 지원하는 NoSQL
@@ -39,6 +39,6 @@ origin 혹은 origin server 는 캐시에 저장할 실 데이터가 존재하�
 ![image](https://user-images.githubusercontent.com/77544214/157219857-dcd97380-c7a9-4ce5-ac81-786cff8e6529.png) 
 * 레디스는 지속성을 보장하기 위해 데이터를 DISK에 저장할 수 있다. 서버가 내려가더라도 DISK에 저장된 데이터를 읽어서 메모리에 로딩한다.
 * RDB(Snapshotting) 방식
-- 순간적으로 메모리에 있는 내용을 DISK에 전체를 옮겨 담는 방식
+-- 순간적으로 메모리에 있는 내용을 DISK에 전체를 옮겨 담는 방식
 * AOF (Append On File) 방식
-- Redis의 모든 write/update 연산 자체를 모두 log 파일에 기록하는 형태
+-- Redis의 모든 write/update 연산 자체를 모두 log 파일에 기록하는 형태
