@@ -1,6 +1,7 @@
 package me.study.cache.service;
 
 import me.study.cache.entity.Person;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,13 +22,29 @@ class PersonServiceTest {
             .createdAt(LocalDateTime.now())
             .build();
 
+    public Person modPerson = Person.builder()
+            .name("sso")
+            .age(23)
+            .createdAt(LocalDateTime.now())
+            .build();
 
     @Test
-    void test() {
-
+    void searchTest() {
         Person insertPerson = personService.insertPerson(this.person);
         Person findPersonOne = personService.findPerson(insertPerson.getId());
         System.out.println(findPersonOne);
+
+        Person findPersonTwo = personService.findPerson(insertPerson.getId());
+        System.out.println(findPersonTwo);
+    }
+
+    @Test
+    void modifyTest() {
+        Person insertPerson = personService.insertPerson(this.person);
+        Person findPersonOne = personService.findPerson(insertPerson.getId());
+        System.out.println(findPersonOne);
+
+        personService.modifyPerson(insertPerson.getId(), modPerson);
         Person findPersonTwo = personService.findPerson(insertPerson.getId());
         System.out.println(findPersonTwo);
     }
