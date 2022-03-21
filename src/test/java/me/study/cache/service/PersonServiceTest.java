@@ -47,7 +47,7 @@ class PersonServiceTest {
 
         personService.modifyPerson(insertPerson.getId(), modPerson);
         Person findPersonTwo = personService.findPerson(insertPerson.getId());
-        assertEquals("sso", findPersonOne.getName());
+        assertEquals("sso", findPersonTwo.getName());
     }
 
     @Test
