@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,10 +16,14 @@ class PersonRepositoryTest {
     @Autowired
     private PersonRepository personRepository;
 
+    public Person person = Person.builder()
+            .name("gyul")
+            .age(26)
+            .createdAt(LocalDateTime.now())
+            .build();
+
     @Test
     void test() {
-        Person person = new Person("park", 20);
-
         Person dbPerson = personRepository.save(person);
         Optional<Person> personResult = personRepository.findById(dbPerson.getId());
 
