@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.study.cache.entity.Person;
 import me.study.cache.repository.PersonRepository;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +28,18 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    @CacheEvict(value = "person", key = "#id")
+    @CachePut(value = "person", key = "#id")
     @Transactional
-    public void modifyPerson(Long id, Person person) {
+    public Person modifyPerson(Long id, Person person) {
         Person dbPerson = personRepository.findById(id).orElseThrow();
         dbPerson.setAge(person.getAge());
         dbPerson.setName(person.getName());
+        return dbPerson;
+    }
+
+    @CacheEvict(value = "person", key = "#id")
+    @Transactional
+    public void deletePerson(Long id) {
+        personRepository.deleteById(id);
     }
 }

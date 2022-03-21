@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,20 +33,32 @@ class PersonServiceTest {
     void searchTest() {
         Person insertPerson = personService.insertPerson(this.person);
         Person findPersonOne = personService.findPerson(insertPerson.getId());
-        System.out.println(findPersonOne);
+        assertEquals("gyul", findPersonOne.getName());
 
         Person findPersonTwo = personService.findPerson(insertPerson.getId());
-        System.out.println(findPersonTwo);
+        assertEquals("gyul", findPersonOne.getName());
     }
 
     @Test
     void modifyTest() {
         Person insertPerson = personService.insertPerson(this.person);
         Person findPersonOne = personService.findPerson(insertPerson.getId());
-        System.out.println(findPersonOne);
+        assertEquals("gyul", findPersonOne.getName());
 
         personService.modifyPerson(insertPerson.getId(), modPerson);
         Person findPersonTwo = personService.findPerson(insertPerson.getId());
-        System.out.println(findPersonTwo);
+        assertEquals("sso", findPersonOne.getName());
+    }
+
+    @Test
+    void deleteTest() {
+        Person insertPerson = personService.insertPerson(this.person);
+        Person findPersonOne = personService.findPerson(insertPerson.getId());
+        assertEquals("gyul", findPersonOne.getName());
+
+        personService.deletePerson(insertPerson.getId());
+        assertThrows(NoSuchElementException.class, () -> {
+            personService.findPerson(insertPerson.getId());
+        });
     }
 }
